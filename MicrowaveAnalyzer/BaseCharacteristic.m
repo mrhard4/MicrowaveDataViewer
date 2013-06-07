@@ -10,6 +10,10 @@
 
 @implementation Option
 
+- (id)selectedValue {
+    return self.values[self.selectedValueIndex];
+}
+
 @end
 
 
@@ -30,10 +34,13 @@
 #define RANDOM_FLOAT (float)(arc4random() % 1000) / 1000.f
         
         self.lineWidth = 2.f;
-        self.fullTitle = [self description];
         self.lineColor = [UIColor colorWithRed:RANDOM_FLOAT green:RANDOM_FLOAT blue:1.f - (RANDOM_FLOAT / 5.f) alpha:1.f];;
     }
     return self;
+}
+
+- (NSString *)fullTitle {
+    return _fullTitle ? : [self description];
 }
 
 - (double)minValue {
@@ -75,8 +82,23 @@
     return 0;
 }
 
+- (id)instance {
+    return [[[self class] alloc] initWithMeasurement:_measurement];
+}
+
 - (id)copyWithZone:(NSZone *)zone {
-    return self;
+    BaseCharacteristic *result = [self instance];
+    result.options = [NSMutableArray new];
+    for (Option *o in self.options) {
+        Option *newOption = [Option new];
+        newOption.selectedValueIndex = o.selectedValueIndex;
+        newOption.values = o.values;
+        newOption.title = o.title;
+        newOption.parentOption = o.parentOption;
+        newOption.parentIndexes = o.parentIndexes;
+        [result.options addObject:newOption];
+    }
+    return result;
 }
 
 - (NSArray *)freq {
@@ -87,8 +109,17 @@
     return 20.;
 }
 
+- (NSString *)optionsDescription {
+    Option *o = self.options.count ? self.options[0] : nil;
+    return o.selectedValue;
+}
+
 - (NSString *)description {
-    return [self title];
+    return [NSString stringWithFormat:@"%@ %@", self.title, [self optionsDescription]];
+}
+
+- (BOOL)isEqual:(id)object {
+    return [self class] == [object class] && [[self description] isEqualToString:[object description]];
 }
 
 @end

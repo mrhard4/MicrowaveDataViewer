@@ -9,14 +9,11 @@
 #import "PortCharacteristic.h"
 
 
-enum {
-    OptionTypeOutputType = 0,
-    OptionTypeComplexModifier,
-    OptionTypeToPortIndex,
-    OptionTypeFromPortIndex
-};
-
 @implementation PortCharacteristic
+
+- (id)instance {
+    return [[[self class] alloc] initWithMeasurement:_measurement R:_R];
+}
 
 - (id)initWithMeasurement:(Measurement *)measurement R:(double)R {
     if ((self = [super initWithMeasurement:measurement])) {
@@ -88,6 +85,14 @@ enum {
 
 - (ComplexNumber *)valueForFreq:(NSNumber *)freq i:(int)i j:(int)j sMatrix:(ComplexMatrix *)sMatrix {
     return 0;
+}
+
+- (NSString *)optionsDescription {
+    return [NSString stringWithFormat:@"%@%@, %@, %@",
+            [self.options[OptionTypeToPortIndex] selectedValue],
+            [self.options[OptionTypeFromPortIndex] selectedValue],
+            [self.options[OptionTypeComplexModifier] selectedValue],
+            [super optionsDescription]];
 }
 
 @end

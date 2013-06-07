@@ -19,6 +19,13 @@
 
 #define S12_MULTIPLY_S21(sMatrix) [[sMatrix elementForColumn:0 row:1] multiply:[sMatrix elementForColumn:1 row:0]]
 
+enum {
+    OptionTypeOutputType = 0,
+    OptionTypeComplexModifier,
+    OptionTypeToPortIndex,
+    OptionTypeFromPortIndex
+};
+
 typedef enum {
     ComplexModifierReal = 0,
     ComplexModifierImag,

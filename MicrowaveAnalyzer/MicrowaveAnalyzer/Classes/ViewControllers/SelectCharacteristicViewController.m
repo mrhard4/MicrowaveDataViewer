@@ -87,7 +87,7 @@
         
         if ([_selectedCharacteristics containsObject:c]) {
             for (Option *o in c.options) {
-                if (!o.parentOption || [o.parentIndexes containsObject:@(o.parentOption.selectedValue)]) {
+                if (!o.parentOption || [o.parentIndexes containsObject:@(o.parentOption.selectedValueIndex)]) {
                     s = [Section new];
                     s.title = o.title;
                     s.items = o.values;
@@ -122,7 +122,7 @@
     if (section.characteistic && [_selectedCharacteristics containsObject:section.characteistic]) {
         isSelected = YES;
     } else if (section.option) {
-        isSelected = indexPath.row == section.option.selectedValue;
+        isSelected = indexPath.row == section.option.selectedValueIndex;
     }
     
     cell.accessoryType = isSelected ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
@@ -140,7 +140,7 @@
             [_selectedCharacteristics addObject:section.characteistic];
         }        
     } else if (section.option) {
-        section.option.selectedValue = indexPath.row;
+        section.option.selectedValueIndex = indexPath.row;
     }
     
     [self reload];

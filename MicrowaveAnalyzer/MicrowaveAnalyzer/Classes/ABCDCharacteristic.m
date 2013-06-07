@@ -50,4 +50,12 @@
     return [[complexNumber addNumber:1.] div:[COMPLEX_FROM_NUMBER(1.) sub:complexNumber]];
 }
 
+- (NSString *)description {
+    NSArray *values = @[@"A", @"B", @"C", @"D"];
+    return [NSString stringWithFormat:@"%@, %@, %@",
+            values[2 * [self.options[OptionTypeToPortIndex] selectedValueIndex] + [self.options[OptionTypeFromPortIndex] selectedValueIndex]],
+            [self.options[OptionTypeComplexModifier] selectedValue],
+            [self.options[OptionTypeOutputType] selectedValue]];
+}
+
 @end

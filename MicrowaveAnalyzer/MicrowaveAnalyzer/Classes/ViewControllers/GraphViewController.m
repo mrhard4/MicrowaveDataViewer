@@ -51,7 +51,7 @@
     UIPopoverController *_popover;
     GraphDataSource *_dataSource;
     NSArray *_allCharacteristics;
-    NSArray *_graphCharacteristics;
+    NSMutableArray *_graphCharacteristics;
     
     UIBarButtonItem *_addBarButtonItem;
     UIBarButtonItem *_editBarButtonItem;
@@ -71,6 +71,8 @@
     if ((self = [super init])) {
         _measurements = measurements;
         _s2pFileName = fileName;
+        
+        _graphCharacteristics = [NSMutableArray new];
         
         UIBarButtonItem *fileButton = [[UIBarButtonItem alloc] initWithTitle:@"File"
                                                                        style:UIBarButtonItemStyleBordered
@@ -284,13 +286,17 @@
     if (IS_IPAD) {
         [_popover dismissPopoverAnimated:YES];
     }
-    _graphCharacteristics = result;
+    for (id c in result) {
+        if (![_graphCharacteristics containsObject:c]) {
+            [_graphCharacteristics addObject:[c copy]];
+        }
+    }
     [self reload];
 }
 
 - (void)onListButtonTap:(id)sender {
     SelectCharacteristicViewController *selectVC = [[SelectCharacteristicViewController alloc] initWithCharacteristics:_allCharacteristics
-                                                                                               selectedCharacteristics:_graphCharacteristics];
+                                                                                               selectedCharacteristics:nil];
     __weak id this = self;
     selectVC.onComplete = ^(NSArray *selectedItems) {
         [this onCompleSelectCharacteristics:selectedItems];

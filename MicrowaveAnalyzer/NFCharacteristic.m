@@ -18,6 +18,10 @@
     NFMinCharacteristic *_NFmin;
 }
 
+- (id)instance {
+    return [[[self class] alloc] initWithSParams:_sParams rn:_rn gammaOpt:_gammaOpt NFMin:_NFmin];
+}
+
 - (id)initWithSParams:(Measurement *)sParams rn:(Measurement *)rn gammaOpt:(Measurement *)gammaOpt NFMin:(NFMinCharacteristic *)NFmin {
     if ((self = [super initWithMeasurement:sParams])) {
         _sParams = sParams;

@@ -9,16 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "Measurement.h"
 
-#define OPTION_VALUE(index) (self.options.count > index ? [self.options[(index)] selectedValue] : 0)
+#define OPTION_VALUE(index) (self.options.count > index ? [self.options[(index)] selectedValueIndex] : 0)
 
 @interface Option : NSObject 
 
 @property (nonatomic, strong) NSArray *values;
-@property (nonatomic) int selectedValue;
+@property (nonatomic) int selectedValueIndex;
 @property (nonatomic, copy) NSString *title;
 
 @property (nonatomic, strong) Option *parentOption;
 @property (nonatomic, strong) NSMutableArray *parentIndexes;
+
+- (id)selectedValue;
 
 @end
 
@@ -26,7 +28,7 @@
     Measurement *_measurement;
 }
 
-@property (nonatomic, strong, readonly) NSMutableArray *options;
+@property (nonatomic, strong) NSMutableArray *options;
 
 //view options
 @property (nonatomic, copy) NSString *fullTitle;
@@ -45,5 +47,7 @@
 - (NSArray *)freq;
 
 + (double)dbMultiplier;
+
+- (NSString *)optionsDescription;
 
 @end
