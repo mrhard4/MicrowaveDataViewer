@@ -8,12 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import "ComplexNumber.h"
+#import "BaseCharacteristic.h"
 
 @interface FootnoteView : UIControl
 
 @property (nonatomic, copy) void(^onCloseButtonTap)(void);
 @property (nonatomic, weak) IBOutlet UIButton *deleteButton;
 @property (nonatomic, strong, readonly) ComplexNumber *complexNumber;
+
+@property (nonatomic, strong) BaseCharacteristic *characteristic;
 
 + (FootnoteView *)view;
 

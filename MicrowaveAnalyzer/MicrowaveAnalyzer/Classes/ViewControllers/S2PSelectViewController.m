@@ -117,7 +117,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     @try {
         [self.navigationController pushViewController:[[GraphViewController alloc] initWithMeasurements:[[S2PLoader sharedInstance]
-                                                                                                         loadFile:_listOfFiles[indexPath.row]]]
+                                                                                                         loadFile:_listOfFiles[indexPath.row]]
+                                                                                               fileName:_listOfFiles[indexPath.row]]
                                              animated:YES];
     }
     @catch (NSException *exception) {

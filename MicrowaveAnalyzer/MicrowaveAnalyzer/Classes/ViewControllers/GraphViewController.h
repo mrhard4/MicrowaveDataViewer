@@ -10,6 +10,6 @@
 
 @interface GraphViewController : BaseViewController <CPTPlotSpaceDelegate>
 
-- (id)initWithMeasurements:(NSDictionary *)measurements;
+- (id)initWithMeasurements:(NSDictionary *)measurements fileName:(NSString *)fileName;
 
 @end

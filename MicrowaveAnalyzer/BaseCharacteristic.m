@@ -26,6 +26,12 @@
         option.title = @"Output format";
         
         [_options addObject:option];
+        
+#define RANDOM_FLOAT (float)(arc4random() % 1000) / 1000.f
+        
+        self.lineWidth = 2.f;
+        self.fullTitle = [self description];
+        self.lineColor = [UIColor colorWithRed:RANDOM_FLOAT green:RANDOM_FLOAT blue:1.f - (RANDOM_FLOAT / 5.f) alpha:1.f];;
     }
     return self;
 }
@@ -79,6 +85,10 @@
 
 + (double)dbMultiplier {
     return 20.;
+}
+
+- (NSString *)description {
+    return [self title];
 }
 
 @end

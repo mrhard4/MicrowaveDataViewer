@@ -41,11 +41,21 @@
     return [[NSFileManager defaultManager] removeItemAtPath:[self pathForFile:fileName] error:nil];
 }
 
+- (NSString *)fileContent:(NSString *)fileName {
+    return [NSString stringWithContentsOfFile:[self pathForFile:fileName]
+                                     encoding:NSUTF8StringEncoding
+                                        error:nil];
+}
+
+- (void)saveFileWithContent:(NSString *)fileContent fileName:(NSString *)fileName {
+    NSError *err;
+    [fileContent writeToFile:[self pathForFile:fileName] atomically:YES encoding:NSUTF8StringEncoding error:&err];
+    NSLog(@"%@", err);
+}
+
 - (NSDictionary *)loadFile:(NSString *)fileName {
 #ifdef DEBUG
-    NSString *file = [NSString stringWithContentsOfFile:[self pathForFile:fileName]
-                                               encoding:NSUTF8StringEncoding
-                                                  error:nil];
+    NSString *file = [self fileContent:fileName];
     if (!file || [file length] == 0) {
         file = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:fileName ofType:nil]
                                          encoding:NSUTF8StringEncoding

@@ -40,6 +40,8 @@
 		25B7197917117235007AB78A /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 25B7197817117235007AB78A /* Default.png */; };
 		25B7197B17117235007AB78A /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25B7197A17117235007AB78A /* Default@2x.png */; };
 		25B7197D17117235007AB78A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 25B7197C17117235007AB78A /* Default-568h@2x.png */; };
+		25D32C50175F840000B95606 /* EditFileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25D32C4E175F840000B95606 /* EditFileViewController.m */; };
+		25D32C51175F840000B95606 /* EditFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25D32C4F175F840000B95606 /* EditFileViewController.xib */; };
 		25E1A5A8174D0B2700DA2A25 /* YPortCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 25E1A5A7174D0B2700DA2A25 /* YPortCharacteristic.m */; };
 		25E1A5AB174D0CC300DA2A25 /* HPortCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 25E1A5AA174D0CC200DA2A25 /* HPortCharacteristic.m */; };
 		25E1A5B8174F6C5800DA2A25 /* GMaxCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 25E1A5B7174F6C5600DA2A25 /* GMaxCharacteristic.m */; };
@@ -114,6 +116,9 @@
 		25B7197817117235007AB78A /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		25B7197A17117235007AB78A /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		25B7197C17117235007AB78A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		25D32C4D175F840000B95606 /* EditFileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditFileViewController.h; sourceTree = "<group>"; };
+		25D32C4E175F840000B95606 /* EditFileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditFileViewController.m; sourceTree = "<group>"; };
+		25D32C4F175F840000B95606 /* EditFileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditFileViewController.xib; sourceTree = "<group>"; };
 		25E1A5A6174D0B2700DA2A25 /* YPortCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YPortCharacteristic.h; sourceTree = SOURCE_ROOT; };
 		25E1A5A7174D0B2700DA2A25 /* YPortCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YPortCharacteristic.m; sourceTree = SOURCE_ROOT; };
 		25E1A5A9174D0CC200DA2A25 /* HPortCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPortCharacteristic.h; sourceTree = SOURCE_ROOT; };
@@ -317,6 +322,7 @@
 		25B719851711729E007AB78A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				25D32C4C175F83CD00B95606 /* EditFileViewController */,
 				25B4F75C173D3941002CD0CA /* GraphsInfoViewController */,
 				259267D017341600000C08F4 /* SelectCharacteristicViewController */,
 				25383D89173109DD0008367B /* S2PSelectViewController */,
@@ -324,6 +330,16 @@
 				25F3ACB01713142000B6966B /* BaseControllers */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		25D32C4C175F83CD00B95606 /* EditFileViewController */ = {
+			isa = PBXGroup;
+			children = (
+				25D32C4D175F840000B95606 /* EditFileViewController.h */,
+				25D32C4E175F840000B95606 /* EditFileViewController.m */,
+				25D32C4F175F840000B95606 /* EditFileViewController.xib */,
+			);
+			name = EditFileViewController;
 			sourceTree = "<group>";
 		};
 		25F3ACB01713142000B6966B /* BaseControllers */ = {
@@ -422,6 +438,7 @@
 				25E1A5C71753177600DA2A25 /* smith_chart~ipad.png in Resources */,
 				25E1A5C81753177600DA2A25 /* smith_chart~iphone.png in Resources */,
 				2591B8F8175B0EAE0009FCD9 /* demoFile in Resources */,
+				25D32C51175F840000B95606 /* EditFileViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -492,6 +509,7 @@
 				25E1A5BC1751136700DA2A25 /* SmithChartView.m in Sources */,
 				25E1A5CB1753186C00DA2A25 /* GTCharacteristic.m in Sources */,
 				25E1A5CE17531DAD00DA2A25 /* NFCharacteristic.m in Sources */,
+				25D32C50175F840000B95606 /* EditFileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,6 +13,7 @@
 @interface GraphDataSource : NSObject <CPTPlotDataSource>
 
 @property (nonatomic, strong) NSDictionary *characteristics;
+@property (nonatomic, readonly, strong) BaseCharacteristic *nearestCharacteristic;
 
 - (id)initWithFreq:(NSArray *)freq;
 

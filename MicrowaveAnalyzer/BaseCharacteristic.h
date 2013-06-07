@@ -28,6 +28,11 @@
 
 @property (nonatomic, strong, readonly) NSMutableArray *options;
 
+//view options
+@property (nonatomic, copy) NSString *fullTitle;
+@property (nonatomic, strong) UIColor *lineColor;
+@property (nonatomic) CGFloat lineWidth;
+
 - (id)initWithMeasurement:(Measurement *)measurement;
 
 - (double)minValue;

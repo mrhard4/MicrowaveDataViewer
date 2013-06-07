@@ -29,6 +29,7 @@
 @property (nonatomic, strong) UIImage *image;
 
 @property (nonatomic, strong) GraphDataSource *dataSource;
+@property (nonatomic, strong, readonly) BaseCharacteristic *currentCharacteristic;
 
 - (void)beginTouch:(CGPoint)point;
 - (ComplexPoint *)pointForTouchedPoint:(CGPoint)point;

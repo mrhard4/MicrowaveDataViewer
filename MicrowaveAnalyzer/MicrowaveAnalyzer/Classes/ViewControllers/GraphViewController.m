@@ -20,6 +20,7 @@
 #import "SmithChartView.h"
 #import "GTCharacteristic.h"
 #import "NFCharacteristic.h"
+#import "EditFileViewController.h"
 
 @interface Plot : CPTScatterPlot <NSCopying>
 
@@ -56,20 +57,30 @@
     UIBarButtonItem *_editBarButtonItem;
     UIBarButtonItem *_doneEditingBarButtonItem;
     NSArray *_rightBarButtonsWithInfo;
+    NSArray *_rightBarButtonsWithoutInfo;
     FootnoteView *_activeFootnoterView;
     
     NSMutableArray *_allFootnoters;
     
     NSString *_frequencyString;
+    
+    NSString *_s2pFileName;
 }
 
-- (id)initWithMeasurements:(NSDictionary *)measurements {
+- (id)initWithMeasurements:(NSDictionary *)measurements fileName:(NSString *)fileName {
     if ((self = [super init])) {
         _measurements = measurements;
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                               target:self
-                                                                                               action:@selector(onListButtonTap:)];
-        _addBarButtonItem = self.navigationItem.rightBarButtonItem;
+        _s2pFileName = fileName;
+        
+        UIBarButtonItem *fileButton = [[UIBarButtonItem alloc] initWithTitle:@"File"
+                                                                       style:UIBarButtonItemStyleBordered
+                                                                      target:self
+                                                                      action:@selector(onFileButtonTap:)];
+        
+        _addBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
+                                                                          target:self
+                                                                          action:@selector(onListButtonTap:)];
+        _rightBarButtonsWithoutInfo = @[_addBarButtonItem, fileButton];
         
         _editBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
                                                                            target:self
@@ -82,10 +93,12 @@
         
         _allFootnoters = [NSMutableArray new];
         
-        _rightBarButtonsWithInfo = @[_addBarButtonItem, [[UIBarButtonItem alloc] initWithTitle:@"Info"
-                                                                                         style:UIBarButtonItemStyleBordered
-                                                                                        target:self
-                                                                                        action:@selector(onInfoButtonTap:)]];
+        _rightBarButtonsWithInfo = @[_addBarButtonItem,
+                                     [[UIBarButtonItem alloc] initWithTitle:@"Info"
+                                                                      style:UIBarButtonItemStyleBordered
+                                                                     target:self
+                                                                     action:@selector(onInfoButtonTap:)],
+                                     fileButton];
         
         _frequencyString = _measurements[@"fString"];
         
@@ -153,13 +166,20 @@
     self.editing = YES;
 }
 
+- (void)onFileButtonTap:(id)sender {
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:[[EditFileViewController alloc] initWithFileName:_s2pFileName]]
+                       animated:YES
+                     completion:nil];
+}
+
 - (void)onDoneEditingButtonTap:(id)sender {
     self.editing = NO;
 }
 
-- (void)addActiveFootnoteViewIfNeeded {
+- (void)addActiveFootnoteViewIfNeededForharacteristic:(BaseCharacteristic *)ch {
     if (_activeFootnoterView == nil) {
         _activeFootnoterView = [FootnoteView view];
+        _activeFootnoterView.characteristic = ch;
         [_allFootnoters addObject:_activeFootnoterView];
         [_activeFootnoterView addTarget:self action:@selector(onFootnoterViewTap:) forControlEvents:UIControlEventTouchDown];
         __weak id activeView = _activeFootnoterView;
@@ -184,7 +204,7 @@
         ComplexPoint *cPoint = [self.smithChartView pointForTouchedPoint:point];
         if (!POINT_IS_EMPTY(cPoint.realPoint)) {
             CGPoint footnotePoint = [self.view convertPoint:cPoint.realPoint fromView:self.smithChartView];
-            [self addActiveFootnoteViewIfNeeded];
+            [self addActiveFootnoteViewIfNeededForharacteristic:self.smithChartView.currentCharacteristic];
             if (!_activeFootnoterView.superview) {
                 _activeFootnoterView.center = footnotePoint;
                 [self.touchedView addSubview:_activeFootnoterView];
@@ -211,7 +231,7 @@
         
         if (recognizer.state == UIGestureRecognizerStateBegan) {
             [_dataSource beginTouch:graphPoint];
-            [self addActiveFootnoteViewIfNeeded];
+            [self addActiveFootnoteViewIfNeededForharacteristic:_dataSource.nearestCharacteristic];
         }
         [_dataSource convertPointToNearestValues:graphPoint];
         
@@ -342,10 +362,20 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.touchedView.alpha = sender.selectedSegmentIndex;
         self.touchedView.backgroundColor = sender.selectedSegmentIndex ? [UIColor whiteColor] : [UIColor clearColor];
+        
+        for (FootnoteView *v in _allFootnoters) {
+            BOOL isHidden = !((sender.selectedSegmentIndex && v.complexNumber) || (!sender.selectedSegmentIndex && !v.complexNumber));
+            [UIView animateWithDuration:0.3 animations:^{
+                v.alpha = !isHidden;
+            } completion:^(BOOL finished) {
+                v.hidden = isHidden;
+            }];
+        }
     } completion:^(BOOL finished) {
         self.smithChartView.hidden = !sender.selectedSegmentIndex;
         self.touchedView.alpha = 1.f;
     }];
+    
     [self reload];
 }
 
@@ -362,13 +392,19 @@
     self.smithChartView.center = self.view.center;
 }
 
-- (void)reload {
-#define RANDOM_FLOAT (float)(arc4random() % 1000) / 1000.f
-    
-    for (UIView *v in _allFootnoters) {
+- (void)removeFootnotesForCharacteristic:(BaseCharacteristic *)characteristic {
+    NSArray *r = [_allFootnoters filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.characteristic == %@", characteristic]];
+    for (UIView *v in r) {
         [v removeFromSuperview];
     }
-    [_allFootnoters removeAllObjects];
+    [_allFootnoters removeObjectsInArray:r];
+}
+
+- (void)reload {    
+//    for (UIView *v in _allFootnoters) {
+//        [v removeFromSuperview];
+//    }
+//    [_allFootnoters removeAllObjects];
 
     
     if ([_graphCharacteristics count] > 0) {
@@ -377,29 +413,53 @@
     } else {
         self.editing = NO;
         self.navigationItem.rightBarButtonItems = nil;
-        [self.navigationItem setRightBarButtonItem:_addBarButtonItem animated:YES];
+        [self.navigationItem setRightBarButtonItems:_rightBarButtonsWithoutInfo animated:YES];
     }
     
-    for (id plot in [_graph allPlots]) {
-        [_graph removePlot:plot];
-    }
+    NSMutableArray *lastCharacteristics = [[_dataSource.characteristics allValues] mutableCopy];
     
     NSMutableDictionary *characteristics = [NSMutableDictionary new];
     
     for (BaseCharacteristic *characteristic in _graphCharacteristics) {
-        Plot *boundLinePlot = [[Plot alloc] init];
-        boundLinePlot.identifier = [characteristic title];
-
-        CPTMutableLineStyle *lineStyle = [boundLinePlot.dataLineStyle mutableCopy];
-        lineStyle.lineWidth         = 1.0f;
-        lineStyle.lineColor         = [CPTColor colorWithComponentRed:RANDOM_FLOAT green:RANDOM_FLOAT blue:1.f - (RANDOM_FLOAT / 5.f) alpha:1.f];
-        boundLinePlot.dataLineStyle = lineStyle;
+        Plot *plot = (Plot *)[_graph plotWithIdentifier:characteristic.fullTitle];
+        if (!plot) {
+            plot = [Plot new];
+            plot.identifier = characteristic.fullTitle;
+            plot.dataSource = _dataSource;
+            [_graph addPlot:plot];
+            characteristics[plot] = characteristic;
+        }
         
-        boundLinePlot.dataSource = _dataSource;
-        [_graph addPlot:boundLinePlot];
+        CPTMutableLineStyle *lineStyle = [plot.dataLineStyle mutableCopy];
+        lineStyle.lineWidth = characteristic.lineWidth;
+        lineStyle.lineColor = [CPTColor colorWithCGColor:characteristic.lineColor.CGColor];
+        plot.dataLineStyle = lineStyle;
         
-        characteristics[boundLinePlot] = characteristic;
+        characteristics[plot] = characteristic;
+        [lastCharacteristics removeObject:characteristic];
     }
+    
+    for (BaseCharacteristic *c in lastCharacteristics) {
+        [_graph removePlot:[_graph plotWithIdentifier:c.fullTitle]];
+        [self removeFootnotesForCharacteristic:c];
+    }
+    
+//    
+//    
+//    for (BaseCharacteristic *characteristic in _graphCharacteristics) {
+//        Plot *boundLinePlot = [[Plot alloc] init];
+//        boundLinePlot.identifier = characteristic.fullTitle;
+//
+//        CPTMutableLineStyle *lineStyle = [boundLinePlot.dataLineStyle mutableCopy];
+//        lineStyle.lineWidth         = characteristic.lineWidth;
+//        lineStyle.lineColor         = [CPTColor colorWithCGColor:characteristic.lineColor.CGColor];
+//        boundLinePlot.dataLineStyle = lineStyle;
+//        
+//        boundLinePlot.dataSource = _dataSource;
+//        [_graph addPlot:boundLinePlot];
+//        
+//        characteristics[boundLinePlot] = characteristic;
+//    }
     _dataSource.characteristics = [characteristics copy];
     
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)_graph.defaultPlotSpace;

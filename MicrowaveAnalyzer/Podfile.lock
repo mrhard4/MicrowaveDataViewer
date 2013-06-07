@@ -1,10 +1,22 @@
 PODS:
+  - BlocksKit (1.8.2):
+    - libffi
+  - ColorPopover (0.0.1):
+    - WEPopover (~> 0.0.1)
   - CorePlot (1.1)
+  - libffi (3.0.11)
+  - WEPopover (0.0.1)
 
 DEPENDENCIES:
+  - BlocksKit
+  - ColorPopover
   - CorePlot
 
 SPEC CHECKSUMS:
-  CorePlot: f23c33720e470d17d8e4aae4a08e4deb184bef56
+  BlocksKit: 7396526b0816734103f6133fbb1a520c8b04e80c
+  ColorPopover: d808e3c8f19a0ffb635535e03bdf709def3129f2
+  CorePlot: c3ec59699a4abc883a030769e7165b2d163d0e35
+  libffi: 8a1d9ba43c0c84b546b42c6f742714e73aa07ae1
+  WEPopover: 119fe521e9c35069c5ec63dfc14334ca321275b8
 
-COCOAPODS: 0.17.2
+COCOAPODS: 0.19.1

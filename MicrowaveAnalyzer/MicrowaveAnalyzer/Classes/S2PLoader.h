@@ -17,5 +17,7 @@
 - (NSArray *)listOfFiles;
 - (BOOL)removeS2PFile:(NSString *)fileName;
 - (NSDictionary *)loadFile:(NSString *)fileName;
+- (NSString *)fileContent:(NSString *)fileName;
+- (void)saveFileWithContent:(NSString *)fileContent fileName:(NSString *)fileName;
 
 @end
