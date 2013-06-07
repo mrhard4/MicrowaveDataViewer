@@ -11,8 +11,9 @@
 
 @interface FootnoteView ()
 
-@property (nonatomic, weak) IBOutlet UILabel *xLabel;
-@property (nonatomic, weak) IBOutlet UILabel *yLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *xLabel;
+//@property (nonatomic, weak) IBOutlet UILabel *yLabel;
+@property (nonatomic, weak) IBOutlet UILabel *label;
 @property (nonatomic, weak) IBOutlet UIView *dotView;
 @property (nonatomic, weak) IBOutlet UIView *labelsBackground;
 
@@ -22,7 +23,7 @@
     CGFloat centerYOffset;
     double *_graphPoint;
     
-    BOOL _inSmithMode;
+//    BOOL _inSmithMode;
 }
 
 + (FootnoteView *)view {
@@ -72,8 +73,11 @@ static NSNumberFormatter *_labelFormatter;
     [labelFormatter setAllowsFloats:YES];
     [labelFormatter setMaximumFractionDigits:8];
     
-    self.xLabel.text = [NSString stringWithFormat:@"x = %@", [labelFormatter stringFromNumber:@(graphPoint[0])]];
-    self.yLabel.text = [NSString stringWithFormat:@"y = %@", [labelFormatter stringFromNumber:@(graphPoint[1])]];
+    self.label.text = [NSString stringWithFormat:@"%@\n%@\n%@", self.characteristic.fullTitle,
+                       [labelFormatter stringFromNumber:@(graphPoint[0])],
+                       [labelFormatter stringFromNumber:@(graphPoint[1])]];
+//    self.xLabel.text = [NSString stringWithFormat:@"x = %@", [labelFormatter stringFromNumber:@(graphPoint[0])]];
+//    self.yLabel.text = [NSString stringWithFormat:@"y = %@", [labelFormatter stringFromNumber:@(graphPoint[1])]];
 }
 
 - (double *)graphPoint {
@@ -111,14 +115,17 @@ static NSNumberFormatter *_labelFormatter;
 }
 
 - (void)setFrequency:(double)freq complexNumber:(ComplexNumber *)complexNumber frequencyMeasurement:(NSString *)measurement {
-    if (!_inSmithMode) {
-        [self.yLabel removeFromSuperview];
-        self.xLabel.frame = self.labelsBackground.bounds;
-        self.xLabel.numberOfLines = 0;
-    }
+//    if (!_inSmithMode) {
+//        [self.yLabel removeFromSuperview];
+//        self.xLabel.frame = self.labelsBackground.bounds;
+//        self.xLabel.numberOfLines = 0;
+//    }
     _complexNumber = complexNumber;
     NSNumberFormatter *f = [[self class] formatter];
-    self.xLabel.text = [NSString stringWithFormat:@"%@ %@,\nr: %@,\nx: %@", [f stringFromNumber:@(freq)], measurement, [f stringFromNumber:@(complexNumber.re)], [f stringFromNumber:@(complexNumber.im)]];
+    self.label.text = [NSString stringWithFormat:@"%@, %@ %@,\nr: %@,\nx: %@", self.characteristic.title,
+                       [f stringFromNumber:@(freq)], measurement,
+                       [f stringFromNumber:@(complexNumber.re)],
+                       [f stringFromNumber:@(complexNumber.im)]];
 }
 
 - (IBAction)onCloseButtonTap:(id)sender {

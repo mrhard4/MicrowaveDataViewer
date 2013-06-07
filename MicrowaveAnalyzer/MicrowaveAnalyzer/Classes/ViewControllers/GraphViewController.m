@@ -317,10 +317,10 @@
 - (void)refreshFootnotes {
     [UIView animateWithDuration:0.3 animations:^{
         for (FootnoteView *v in _allFootnoters) {
-            if (self.smithChartView.hidden) {
-                v.center = [self graphPointToViewPoint:v.graphPoint];
+            if (v.complexNumber) {
+                v.center = [self.view convertPoint:[self.smithChartView convertComplexToViewPoint:v.complexNumber] fromView:self.smithChartView];
             } else {
-                v.center = [self.view convertPoint:[self.smithChartView convertComplexToViewPoint:v.complexNumber] fromView:self.smithChartView];;
+                v.center = [self graphPointToViewPoint:v.graphPoint];
             }
         }
     }];
