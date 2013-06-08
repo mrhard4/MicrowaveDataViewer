@@ -95,4 +95,16 @@
             [super optionsDescription]];
 }
 
+- (NSString *)SmithDescription {
+    return [NSString stringWithFormat:@"%@ %@%@", self.title,
+                           [self.options[OptionTypeToPortIndex] selectedValue],
+                           [self.options[OptionTypeFromPortIndex] selectedValue]];
+}
+
+- (BOOL)isEqualForSmith:(id)object {
+    return [self class] == [object class] &&
+    OPTION_VALUE(OptionTypeToPortIndex) == OPTION_VALUE_IN_OBJECT(object, OptionTypeToPortIndex) &&
+    OPTION_VALUE(OptionTypeFromPortIndex) == OPTION_VALUE_IN_OBJECT(object, OptionTypeFromPortIndex);
+}
+
 @end

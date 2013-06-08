@@ -7,22 +7,27 @@
 //
 
 #import "GraphsInfoViewController.h"
+#import "BaseCharacteristic.h"
+#import "GraphDataSource.h"
 
 @interface GraphsInfoViewController ()
 
 @end
 
 @implementation GraphsInfoViewController {
-    NSDictionary *_characteristicsByColor;
-    NSArray *_characteristicsNames;
+    NSMutableArray *_characteristics;
+    NSMutableArray *_source;
+    BOOL _SmithMode;
 }
 
-- (id)initWithCharacteristicsByColor:(NSDictionary *)characteristicsByColor 
+- (id)initWithCharacteristics:(NSMutableArray *)characteristics SmithMode:(BOOL)SmithMode
 {
     self = [super init];
     if (self) {
-        _characteristicsByColor = characteristicsByColor;
-        _characteristicsNames = [_characteristicsByColor allKeys];
+        _characteristics = characteristics;
+        _SmithMode = SmithMode;
+        
+        _source = SmithMode ? [[GraphDataSource smithCharacteristicsInArray:_characteristics] mutableCopy] : _characteristics;
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Done"
                                                                                   style:UIBarButtonItemStyleBordered
@@ -33,11 +38,14 @@
 }
 
 - (void)onDoneTap:(id)sender {
+    if (self.willDismissCallback) {
+        self.willDismissCallback();
+    }
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_characteristicsNames count];
+    return [_source count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -46,8 +54,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.textLabel.text = [_characteristicsNames[indexPath.row] title];
-    cell.backgroundColor = _characteristicsByColor[_characteristicsNames[indexPath.row]];
+    cell.textLabel.text = _SmithMode ? [_source[indexPath.row] SmithDescription] : [_source[indexPath.row] fullTitle];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    id object = _source[indexPath.row];
+    [_characteristics removeObject:object];
+    [_source removeObject:object];
+    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

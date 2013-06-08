@@ -43,6 +43,10 @@
     return _fullTitle ? : [self description];
 }
 
+- (NSString *)SmithDescription {
+    return _fullTitle ? : [self description];
+}
+
 - (double)minValue {
     double min = MAXFLOAT;
     for (NSNumber *f in _measurement.freq) {

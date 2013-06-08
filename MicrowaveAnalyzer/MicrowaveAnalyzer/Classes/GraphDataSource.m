@@ -57,24 +57,6 @@
     return nil;
 }
 
-- (NSDictionary *)characteristicsByColor:(NSArray *)characteristics {
-    NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[_characteristics count]];
-    for (BaseCharacteristic *characteristic in characteristics) {
-        result[characteristic] = [UIColor colorWithCGColor:((CPTScatterPlot *)[self keyForValue:characteristic inDictionary:self.characteristics]).dataLineStyle.lineColor.cgColor];
-    }
-    return [result copy];
-}
-
-- (NSDictionary *)characteristicsByColor {
-    return [self characteristicsByColor:[self.characteristics allValues]];
-}
-
-- (NSDictionary *)portCharacteristicsByColor {
-    return [self characteristicsByColor:[[self.characteristics allValues] filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-        return [evaluatedObject isKindOfClass:[PortCharacteristic class]];
-    }]]];
-}
-
 - (NSNumber *)findFrequencyForDoubleValue:(double)value {
     return [self findFrequencyForDoubleValue:value inArray:_freq];
 }
@@ -114,6 +96,25 @@
     NSNumber *f = [self findFrequencyForDoubleValue:point[0]];
     point[0] = [f doubleValue];
     point[1] = [_nearestCharacteristic localizedValueForFreq:f];
+}
+
++ (BOOL)array:(NSArray *)array containsSmithCharacteristic:(PortCharacteristic *)ch {
+    for (id obj in array) {
+        if ([ch isEqualForSmith:obj]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
++ (NSArray *)smithCharacteristicsInArray:(NSArray *)array {
+    NSMutableArray *result = [NSMutableArray new];
+    [array enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isKindOfClass:[PortCharacteristic class]] && ![self array:result containsSmithCharacteristic:obj]) {
+            [result addObject:obj];
+        }
+    }];
+    return result;
 }
 
 @end

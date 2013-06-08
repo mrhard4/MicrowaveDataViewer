@@ -22,8 +22,7 @@
 - (CPTPlotRange *)xRange;
 - (CPTPlotRange *)yRange;
 
-- (NSDictionary *)characteristicsByColor;
-- (NSDictionary *)portCharacteristicsByColor;
++ (NSArray *)smithCharacteristicsInArray:(NSArray *)array;
 
 - (void)beginTouch:(double *)graphPoint;
 - (void)convertPointToNearestValues:(double *)point;

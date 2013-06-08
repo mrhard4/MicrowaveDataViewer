@@ -122,7 +122,7 @@ static NSNumberFormatter *_labelFormatter;
 //    }
     _complexNumber = complexNumber;
     NSNumberFormatter *f = [[self class] formatter];
-    self.label.text = [NSString stringWithFormat:@"%@, %@ %@,\nr: %@,\nx: %@", self.characteristic.title,
+    self.label.text = [NSString stringWithFormat:@"%@, %@ %@,\nr: %@,\nx: %@", self.characteristic.SmithDescription,
                        [f stringFromNumber:@(freq)], measurement,
                        [f stringFromNumber:@(complexNumber.re)],
                        [f stringFromNumber:@(complexNumber.im)]];

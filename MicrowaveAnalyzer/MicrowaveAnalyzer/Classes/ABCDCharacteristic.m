@@ -50,12 +50,20 @@
     return [[complexNumber addNumber:1.] div:[COMPLEX_FROM_NUMBER(1.) sub:complexNumber]];
 }
 
-- (NSString *)description {
+- (NSString *)characteristicCharacter {
     NSArray *values = @[@"A", @"B", @"C", @"D"];
+    return values[2 * [self.options[OptionTypeToPortIndex] selectedValueIndex] + [self.options[OptionTypeFromPortIndex] selectedValueIndex]];
+}
+
+- (NSString *)description {
     return [NSString stringWithFormat:@"%@, %@, %@",
-            values[2 * [self.options[OptionTypeToPortIndex] selectedValueIndex] + [self.options[OptionTypeFromPortIndex] selectedValueIndex]],
+            [self characteristicCharacter],
             [self.options[OptionTypeComplexModifier] selectedValue],
             [self.options[OptionTypeOutputType] selectedValue]];
+}
+
+- (NSString *)SmithDescription {
+    return [self characteristicCharacter];
 }
 
 @end

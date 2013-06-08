@@ -10,6 +10,8 @@
 
 @interface GraphsInfoViewController : BaseTableViewController
 
-- (id)initWithCharacteristicsByColor:(NSDictionary *)characteristicsByColor;
+@property (nonatomic, copy) void(^willDismissCallback)(void);
+
+- (id)initWithCharacteristics:(NSMutableArray *)characteristics SmithMode:(BOOL)SmithMode;
 
 @end

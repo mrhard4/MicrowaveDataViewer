@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "Measurement.h"
 
-#define OPTION_VALUE(index) (self.options.count > index ? [self.options[(index)] selectedValueIndex] : 0)
+#define OPTION_VALUE_IN_OBJECT(object, index) (((BaseCharacteristic *)object).options.count > index ? [((BaseCharacteristic *)object).options[index] selectedValueIndex] : 0)
+#define OPTION_VALUE(index) OPTION_VALUE_IN_OBJECT(self, index)
 
 @interface Option : NSObject 
 
@@ -34,6 +35,8 @@
 @property (nonatomic, copy) NSString *fullTitle;
 @property (nonatomic, strong) UIColor *lineColor;
 @property (nonatomic) CGFloat lineWidth;
+
+- (NSString *)SmithDescription;
 
 - (id)initWithMeasurement:(Measurement *)measurement;
 

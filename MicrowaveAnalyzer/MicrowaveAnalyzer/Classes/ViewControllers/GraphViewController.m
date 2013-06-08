@@ -275,8 +275,13 @@
 }
 
 - (void)onInfoButtonTap:(id)sender {
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:
-                                   [[GraphsInfoViewController alloc] initWithCharacteristicsByColor:[_dataSource characteristicsByColor]]];
+    GraphsInfoViewController *vc = [[GraphsInfoViewController alloc] initWithCharacteristics:_graphCharacteristics
+                                                                                  SmithMode:!self.smithChartView.hidden];
+    __weak id this = self;
+    vc.willDismissCallback = ^ {
+        [this reload];
+    };
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     nvc.modalPresentationStyle = UIModalPresentationFormSheet;
     nvc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:nvc animated:YES completion:nil];

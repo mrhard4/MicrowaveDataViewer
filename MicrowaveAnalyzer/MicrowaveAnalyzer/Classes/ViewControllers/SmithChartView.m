@@ -106,11 +106,9 @@
 
     _points = [NSMutableDictionary new];
     
-    
-    NSDictionary *charactiristicsByColor = [self.dataSource portCharacteristicsByColor];
-    for (PortCharacteristic *ch in [charactiristicsByColor allKeys]) {
+    for (PortCharacteristic *ch in [GraphDataSource smithCharacteristicsInArray:_dataSource.characteristics.allValues]) {
         NSMutableArray *points = [NSMutableArray new];
-        _points[ch] = points;
+        _points[ch.description] = points;
         
         __block BOOL isFirst = YES;
         [[ch complexNumbers] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -134,8 +132,8 @@
             }
         }];
         [points sortUsingDescriptors:@[[[NSSortDescriptor alloc] initWithKey:@"realX" ascending:YES]]];
-        [charactiristicsByColor[ch] setStroke];
-        CGContextSetLineWidth(context, 3.0f);
+        [ch.lineColor setStroke];
+        CGContextSetLineWidth(context, ch.lineWidth);
         CGContextStrokePath(context);
     }
 }
@@ -268,7 +266,7 @@
 }
 
 - (ComplexPoint *)pointForTouchedPoint:(CGPoint)point {
-    return [self findNearPointForTouchedPoint:point inPoints:_points[_currentCharacteristic]];
+    return [self findNearPointForTouchedPoint:point inPoints:_points[_currentCharacteristic.description]];
 }
 
 @end

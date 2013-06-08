@@ -45,4 +45,6 @@ typedef enum {
 - (NSArray *)complexNumbers;
 - (ComplexNumber *)normalizeComplexNumber:(ComplexNumber *)complexNumber;
 
+- (BOOL)isEqualForSmith:(id)object;
+
 @end
