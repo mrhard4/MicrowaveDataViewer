@@ -21,6 +21,7 @@
 #import "GTCharacteristic.h"
 #import "NFCharacteristic.h"
 #import "EditFileViewController.h"
+#import "LegendSettingsViewController.h"
 
 @interface Plot : CPTScatterPlot <NSCopying>
 
@@ -100,7 +101,11 @@
                                                                       style:UIBarButtonItemStyleBordered
                                                                      target:self
                                                                      action:@selector(onInfoButtonTap:)],
-                                     fileButton];
+                                     fileButton,
+                                     [[UIBarButtonItem alloc] initWithTitle:@"Legend"
+                                                                      style:UIBarButtonItemStyleBordered
+                                                                     target:self
+                                                                     action:@selector(onPlotSettingsButtonTap:)]];
         
         _frequencyString = _measurements[@"fString"];
         
@@ -196,6 +201,10 @@
 #define POINT_IS_EMPTY(point) CGPointEqualToPoint((point), CGPointZero)
 
 - (IBAction)onTouchedViewTouch:(UIPanGestureRecognizer *)recognizer {
+    if (![_dataSource.characteristics count]) {
+        return;
+    }
+    
     CGPoint point = [recognizer locationInView:_graph.hostingView];
     
     if (!self.smithChartView.isHidden) {
@@ -272,6 +281,29 @@
 - (void)onFootnoterViewTap:(id)sender {
     _activeFootnoterView = sender;
     [_activeFootnoterView.superview bringSubviewToFront:_activeFootnoterView];
+}
+
+- (void)onPlotSettingsButtonTap:(id)sender {
+    LegendSettingsViewController *vc = [LegendSettingsViewController new];
+   
+    CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)_graph.defaultPlotSpace;
+    
+    vc.minX = plotSpace.xRange.locationDouble;
+    vc.maxX = plotSpace.xRange.locationDouble + plotSpace.xRange.lengthDouble;
+    vc.minY = plotSpace.yRange.locationDouble;
+    vc.maxY = plotSpace.yRange.locationDouble + plotSpace.yRange.lengthDouble;
+
+    __weak LegendSettingsViewController *legendVC = vc;
+    vc.willDismissCallback = ^ {
+        plotSpace.xRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(legendVC.minX) length:CPTDecimalFromFloat(legendVC.maxX - legendVC.minX)];
+        plotSpace.yRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(legendVC.minY) length:CPTDecimalFromFloat(legendVC.maxY - legendVC.minY)];
+        //[_graph reloadDataIfNeeded];
+    };
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    nvc.modalPresentationStyle = UIModalPresentationFormSheet;
+    nvc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:nvc animated:YES completion:nil];
 }
 
 - (void)onInfoButtonTap:(id)sender {

@@ -27,6 +27,9 @@
 }
 
 - (CPTPlotRange *)yRange {
+    if (![self.characteristics count]) {
+        return [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.f) length:CPTDecimalFromFloat(1.f)];
+    }
     CGFloat minV = [[[self.characteristics allValues] valueForKeyPath:@"@min.minValue"] floatValue];
     CGFloat maxV = [[[self.characteristics allValues] valueForKeyPath:@"@max.maxValue"] floatValue];
     

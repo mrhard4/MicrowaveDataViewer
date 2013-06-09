@@ -9,6 +9,7 @@
 #import "GraphsInfoViewController.h"
 #import "BaseCharacteristic.h"
 #import "GraphDataSource.h"
+#import "VisualSettingsViewController.h"
 
 @interface GraphsInfoViewController ()
 
@@ -55,6 +56,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.text = _SmithMode ? [_source[indexPath.row] SmithDescription] : [_source[indexPath.row] fullTitle];
+    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -62,6 +64,10 @@
     [_characteristics removeObject:object];
     [_source removeObject:object];
     [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.navigationController pushViewController:[[VisualSettingsViewController alloc] initWithCharacteristic:_source[indexPath.row]] animated:YES];
 }
 
 @end

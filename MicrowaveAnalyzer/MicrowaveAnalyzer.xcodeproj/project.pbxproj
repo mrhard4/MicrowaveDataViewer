@@ -26,6 +26,14 @@
 		2592DA2417492E7300C05BBE /* ComplexMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 2592DA2317492E7300C05BBE /* ComplexMatrix.m */; };
 		2592DA271749D71300C05BBE /* PortCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2592DA261749D71200C05BBE /* PortCharacteristic.m */; };
 		2592DA2A1749D98A00C05BBE /* SPortCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2592DA291749D98A00C05BBE /* SPortCharacteristic.m */; };
+		25A0B2921762DE5E002770DB /* VisualSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0B2911762DE5E002770DB /* VisualSettingsViewController.m */; };
+		25A0B2951762E07F002770DB /* BaseCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0B2941762E07F002770DB /* BaseCell.m */; };
+		25A0B29B1762E1C2002770DB /* ColorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0B29A1762E1C2002770DB /* ColorCell.m */; };
+		25A0B29E1762E1DF002770DB /* WidthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0B29D1762E1DD002770DB /* WidthCell.m */; };
+		25A0B2A31762E550002770DB /* ColorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A0B2A21762E550002770DB /* ColorCell.xib */; };
+		25A0B2A51762E67F002770DB /* WidthCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A0B2A41762E67E002770DB /* WidthCell.xib */; };
+		25A0B2AB17637433002770DB /* LegendSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 25A0B2A917637433002770DB /* LegendSettingsViewController.m */; };
+		25A0B2AC17637433002770DB /* LegendSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 25A0B2AA17637433002770DB /* LegendSettingsViewController.xib */; };
 		25B4F752173CAFDB002CD0CA /* BaseCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4F751173CAFDB002CD0CA /* BaseCharacteristic.m */; };
 		25B4F755173CB021002CD0CA /* ABCDCharacteristic.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4F754173CB021002CD0CA /* ABCDCharacteristic.m */; };
 		25B4F758173CB683002CD0CA /* GraphDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 25B4F757173CB683002CD0CA /* GraphDataSource.m */; };
@@ -93,6 +101,19 @@
 		2592DA261749D71200C05BBE /* PortCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PortCharacteristic.m; sourceTree = SOURCE_ROOT; };
 		2592DA281749D98900C05BBE /* SPortCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPortCharacteristic.h; sourceTree = SOURCE_ROOT; };
 		2592DA291749D98A00C05BBE /* SPortCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPortCharacteristic.m; sourceTree = SOURCE_ROOT; };
+		25A0B2901762DE5E002770DB /* VisualSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualSettingsViewController.h; sourceTree = "<group>"; };
+		25A0B2911762DE5E002770DB /* VisualSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualSettingsViewController.m; sourceTree = "<group>"; };
+		25A0B2931762E07F002770DB /* BaseCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCell.h; sourceTree = "<group>"; };
+		25A0B2941762E07F002770DB /* BaseCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCell.m; sourceTree = "<group>"; };
+		25A0B2991762E1C2002770DB /* ColorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorCell.h; sourceTree = "<group>"; };
+		25A0B29A1762E1C2002770DB /* ColorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorCell.m; sourceTree = "<group>"; };
+		25A0B29C1762E1DD002770DB /* WidthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WidthCell.h; sourceTree = "<group>"; };
+		25A0B29D1762E1DD002770DB /* WidthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WidthCell.m; sourceTree = "<group>"; };
+		25A0B2A21762E550002770DB /* ColorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorCell.xib; sourceTree = "<group>"; };
+		25A0B2A41762E67E002770DB /* WidthCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WidthCell.xib; sourceTree = "<group>"; };
+		25A0B2A817637432002770DB /* LegendSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LegendSettingsViewController.h; sourceTree = "<group>"; };
+		25A0B2A917637433002770DB /* LegendSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegendSettingsViewController.m; sourceTree = "<group>"; };
+		25A0B2AA17637433002770DB /* LegendSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LegendSettingsViewController.xib; sourceTree = "<group>"; };
 		25B4F750173CAFDB002CD0CA /* BaseCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseCharacteristic.h; sourceTree = SOURCE_ROOT; };
 		25B4F751173CAFDB002CD0CA /* BaseCharacteristic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseCharacteristic.m; sourceTree = SOURCE_ROOT; };
 		25B4F753173CB021002CD0CA /* ABCDCharacteristic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ABCDCharacteristic.h; path = MicrowaveAnalyzer/Classes/ABCDCharacteristic.h; sourceTree = SOURCE_ROOT; };
@@ -200,6 +221,23 @@
 				259267D21734163B000C08F4 /* SelectCharacteristicViewController.m */,
 			);
 			name = SelectCharacteristicViewController;
+			sourceTree = "<group>";
+		};
+		25A0B28F1762DE3B002770DB /* VisualSettingsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				25A0B2901762DE5E002770DB /* VisualSettingsViewController.h */,
+				25A0B2911762DE5E002770DB /* VisualSettingsViewController.m */,
+				25A0B2931762E07F002770DB /* BaseCell.h */,
+				25A0B2941762E07F002770DB /* BaseCell.m */,
+				25A0B2991762E1C2002770DB /* ColorCell.h */,
+				25A0B29A1762E1C2002770DB /* ColorCell.m */,
+				25A0B2A21762E550002770DB /* ColorCell.xib */,
+				25A0B29C1762E1DD002770DB /* WidthCell.h */,
+				25A0B29D1762E1DD002770DB /* WidthCell.m */,
+				25A0B2A41762E67E002770DB /* WidthCell.xib */,
+			);
+			name = VisualSettingsViewController;
 			sourceTree = "<group>";
 		};
 		25B4F75C173D3941002CD0CA /* GraphsInfoViewController */ = {
@@ -322,6 +360,7 @@
 		25B719851711729E007AB78A /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				25A0B28F1762DE3B002770DB /* VisualSettingsViewController */,
 				25D32C4C175F83CD00B95606 /* EditFileViewController */,
 				25B4F75C173D3941002CD0CA /* GraphsInfoViewController */,
 				259267D017341600000C08F4 /* SelectCharacteristicViewController */,
@@ -368,6 +407,9 @@
 				258CE815173E36A80080E8A6 /* FootnoteView.xib */,
 				25E1A5BA1751136600DA2A25 /* SmithChartView.h */,
 				25E1A5BB1751136600DA2A25 /* SmithChartView.m */,
+				25A0B2A817637432002770DB /* LegendSettingsViewController.h */,
+				25A0B2A917637433002770DB /* LegendSettingsViewController.m */,
+				25A0B2AA17637433002770DB /* LegendSettingsViewController.xib */,
 			);
 			name = GraphViewController;
 			sourceTree = "<group>";
@@ -439,6 +481,9 @@
 				25E1A5C81753177600DA2A25 /* smith_chart~iphone.png in Resources */,
 				2591B8F8175B0EAE0009FCD9 /* demoFile in Resources */,
 				25D32C51175F840000B95606 /* EditFileViewController.xib in Resources */,
+				25A0B2A31762E550002770DB /* ColorCell.xib in Resources */,
+				25A0B2A51762E67F002770DB /* WidthCell.xib in Resources */,
+				25A0B2AC17637433002770DB /* LegendSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,6 +555,11 @@
 				25E1A5CB1753186C00DA2A25 /* GTCharacteristic.m in Sources */,
 				25E1A5CE17531DAD00DA2A25 /* NFCharacteristic.m in Sources */,
 				25D32C50175F840000B95606 /* EditFileViewController.m in Sources */,
+				25A0B2921762DE5E002770DB /* VisualSettingsViewController.m in Sources */,
+				25A0B2951762E07F002770DB /* BaseCell.m in Sources */,
+				25A0B29B1762E1C2002770DB /* ColorCell.m in Sources */,
+				25A0B29E1762E1DF002770DB /* WidthCell.m in Sources */,
+				25A0B2AB17637433002770DB /* LegendSettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
