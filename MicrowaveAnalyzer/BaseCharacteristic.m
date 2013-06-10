@@ -10,6 +10,13 @@
 
 @implementation Option
 
+- (id)init {
+    if ((self = [super init])) {
+        self.isUniversal = YES;
+    }
+    return self;
+}
+
 - (id)selectedValue {
     return self.values[self.selectedValueIndex];
 }
@@ -28,6 +35,7 @@
         Option *option = [Option new];
         option.values = @[@"no db", @"db"];
         option.title = @"Output format";
+        option.isUniversal = NO;
         
         [_options addObject:option];
         

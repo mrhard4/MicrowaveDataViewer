@@ -18,6 +18,8 @@
 @property (nonatomic) int selectedValueIndex;
 @property (nonatomic, copy) NSString *title;
 
+@property (nonatomic) BOOL isUniversal;
+
 @property (nonatomic, strong) Option *parentOption;
 @property (nonatomic, strong) NSMutableArray *parentIndexes;
 

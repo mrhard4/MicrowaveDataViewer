@@ -22,6 +22,7 @@
         Option *option = [Option new];
         option.title = @"Complex Modifier";
         option.values = @[@"Real", @"Imag.", @"Mag.", @"Angle"];
+        option.isUniversal = NO;
         [self.options addObject:option];
         
         Option *dbOption = self.options[OptionTypeOutputType];

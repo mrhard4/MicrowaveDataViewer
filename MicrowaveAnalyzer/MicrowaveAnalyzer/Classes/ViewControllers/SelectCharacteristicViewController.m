@@ -8,6 +8,7 @@
 
 #import "SelectCharacteristicViewController.h"
 #import "BaseCharacteristic.h"
+#import "PortCharacteristic.h"
 
 @interface Section : NSObject
 
@@ -33,11 +34,15 @@
     NSArray *_allCharacteristics;
     NSMutableArray *_selectedCharacteristics;
     
+    BOOL _inSmithMode;
+    
     NSMutableArray *_sections;
 }
 
-- (id)initWithCharacteristics:(NSArray *)characteristics selectedCharacteristics:(NSArray *)selectedCharacteristics {
+- (id)initWithCharacteristics:(NSArray *)characteristics selectedCharacteristics:(NSArray *)selectedCharacteristics inSmith:(BOOL)isSmith {
     if ((self = [super initWithTableViewStyle:UITableViewStyleGrouped])) {
+        _inSmithMode = isSmith;
+        
         _allCharacteristics = characteristics;
         _selectedCharacteristics = [selectedCharacteristics mutableCopy];
         if (!_selectedCharacteristics) {
@@ -45,6 +50,11 @@
         }
         
         _allCharacteristics = [_allCharacteristics sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]]];
+        if (_inSmithMode) {
+            _allCharacteristics = [_allCharacteristics filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+                return [evaluatedObject isKindOfClass:[PortCharacteristic class]];
+            }]];
+        }
         
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
                                                                                                target:self
@@ -87,12 +97,14 @@
         
         if ([_selectedCharacteristics containsObject:c]) {
             for (Option *o in c.options) {
-                if (!o.parentOption || [o.parentIndexes containsObject:@(o.parentOption.selectedValueIndex)]) {
+                if (!o.parentOption || [o.parentIndexes containsObject:@(o.parentOption.selectedValueIndex)] ) {
                     s = [Section new];
                     s.title = o.title;
                     s.items = o.values;
                     s.option = o;
-                    [_sections addObject:s];
+                    if (!_inSmithMode || ( _inSmithMode && o.isUniversal)) {
+                        [_sections addObject:s];
+                    }
                 }
             }
         }

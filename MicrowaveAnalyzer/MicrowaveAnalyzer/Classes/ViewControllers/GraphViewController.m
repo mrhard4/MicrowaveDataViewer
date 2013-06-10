@@ -333,7 +333,8 @@
 
 - (void)onListButtonTap:(id)sender {
     SelectCharacteristicViewController *selectVC = [[SelectCharacteristicViewController alloc] initWithCharacteristics:_allCharacteristics
-                                                                                               selectedCharacteristics:nil];
+                                                                                               selectedCharacteristics:nil
+                                                    inSmith:!self.smithChartView.hidden];
     __weak id this = self;
     selectVC.onComplete = ^(NSArray *selectedItems) {
         [this onCompleSelectCharacteristics:selectedItems];

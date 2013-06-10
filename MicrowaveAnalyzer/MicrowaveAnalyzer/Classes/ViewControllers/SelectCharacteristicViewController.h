@@ -12,6 +12,6 @@
 
 @property (nonatomic, copy) void(^onComplete)(NSArray *selectedItems);
 
-- (id)initWithCharacteristics:(NSArray *)characteristics selectedCharacteristics:(NSArray *)selectedCharacteristics;
+- (id)initWithCharacteristics:(NSArray *)characteristics selectedCharacteristics:(NSArray *)selectedCharacteristics inSmith:(BOOL)isSmith;
 
 @end
