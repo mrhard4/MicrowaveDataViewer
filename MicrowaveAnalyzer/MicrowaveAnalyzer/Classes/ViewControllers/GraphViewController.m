@@ -109,7 +109,15 @@
         
         _frequencyString = _measurements[@"fString"];
         
-        _dataSource = [[GraphDataSource alloc] initWithFreq:((Measurement *)[[_measurements allValues] lastObject]).freq];
+        __block Measurement *ch = nil;
+        [[_measurements allValues] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            if ([obj isKindOfClass:[Measurement class]]) {
+                ch = obj;
+                *stop = YES;
+            }
+        }];
+        
+        _dataSource = [[GraphDataSource alloc] initWithFreq:ch.freq];
         NSMutableArray *allCharacteristics = [NSMutableArray new];
         
         Measurement *s = _measurements[@"S"];

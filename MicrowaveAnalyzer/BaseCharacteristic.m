@@ -134,4 +134,8 @@
     return [self class] == [object class] && [[self description] isEqualToString:[object description]];
 }
 
+- (BOOL)isEmpty {
+    return _measurement == nil;
+}
+
 @end

@@ -128,6 +128,7 @@
                                               cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
         [alert show];
+        NSLog(@"%@", exception);
     }
     @finally {
         

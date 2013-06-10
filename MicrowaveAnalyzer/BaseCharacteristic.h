@@ -55,4 +55,6 @@
 
 - (NSString *)optionsDescription;
 
+- (BOOL)isEmpty;
+
 @end

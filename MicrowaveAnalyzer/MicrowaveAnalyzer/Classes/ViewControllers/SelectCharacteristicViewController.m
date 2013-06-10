@@ -50,6 +50,7 @@
         }
         
         _allCharacteristics = [_allCharacteristics sortedArrayUsingDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES]]];
+        _allCharacteristics = [_allCharacteristics filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF.isEmpty = %d", NO]];
         if (_inSmithMode) {
             _allCharacteristics = [_allCharacteristics filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
                 return [evaluatedObject isKindOfClass:[PortCharacteristic class]];

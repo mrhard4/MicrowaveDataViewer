@@ -32,6 +32,10 @@
     return self;
 }
 
+- (BOOL)isEmpty {
+    return _sParams == nil || _rn == nil || _gammaOpt == nil || [_NFmin isEmpty];
+}
+
 + (double)dbMultiplier {
     return 10.;
 }
